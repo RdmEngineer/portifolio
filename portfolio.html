@@ -1,0 +1,1324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<title>Your Name — Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Display:ital,wght@0,400;0,600;1,400;1,600&family=Geist+Mono:wght@400;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --slate: rgb(56, 80, 92);       /* token-a2645a99 — the signature teal-slate */
+  --white: rgb(255, 255, 255);    /* token-ccbbe51b */
+  --bg-page: #e3e2e1;             /* outer page background */
+  --bg-panel: var(--white);
+  --near-black: #1a1a1a;          /* token-aa303802 */
+  --border: rgba(56,80,92,0.1);
+  --border-25: rgba(56,80,92,0.25);
+  --font-display: 'Inter Display', sans-serif;
+  --font-mono: 'Geist Mono', monospace;
+  --font-body: 'Inter', sans-serif;
+}
+
+html, body {
+  background: var(--bg-page);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+  height: 100%;
+}
+
+/* ── OUTER WRAPPER ── */
+.site {
+  max-width: 1440px;
+  min-height: 100vh;
+  margin: 0 auto;
+  background: var(--white);
+  display: flex;
+  flex-direction: column;
+}
+
+/* ── FIXED VIEWPORT FRAME ── */
+.frame {
+  height: 100vh;
+  display: flex;
+  flex-direction: row;
+  overflow: hidden;
+  position: relative;
+}
+
+/* ─── LEFT PANEL ─── */
+.panel-left {
+  width: 50%;
+  background: var(--white);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 0 0 24px 0;
+  position: relative;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+/* Subtle dot-grid texture overlay */
+.panel-left::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(circle, rgba(56,80,92,0.12) 1px, transparent 1px);
+  background-size: 20px 20px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Vertical divider lines inside left panel */
+.grid-lines {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  display: flex;
+}
+.grid-line { background: rgba(56,80,92,0.10); }
+.gl-outer { width: 23px; }
+.gl-thin { width: 1px; }
+.gl-flex { flex: 1; }
+
+/* ── TOP BAR ── */
+.top-bar {
+  position: relative;
+  z-index: 1;
+  height: 24px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 0 24px 0 0;
+  border-bottom: 1px solid rgba(56,80,92,0.05);
+}
+
+/* ── HEADER AREA (tagline + buttons) ── */
+.left-header {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 24px 24px 0 48px;
+  gap: 0;
+}
+
+.tagline-box {
+  max-width: 50%;
+  display: flex;
+  align-items: center;
+  padding: 12px;
+  position: relative;
+  flex: 1;
+}
+
+/* corner marks on tagline box */
+.tagline-box::before,
+.tagline-box::after,
+.tagline-box .corner-br,
+.tagline-box .corner-bl,
+.tagline-box .corner-tr,
+.tagline-box .corner-tl {
+  content: '';
+  position: absolute;
+  background: var(--slate);
+}
+.tagline-box .corner-tl-h { top: 0; left: 0; height: 1px; width: 4px; position: absolute; background: var(--slate); }
+.tagline-box .corner-tl-v { top: 0; left: 0; height: 4px; width: 1px; position: absolute; background: var(--slate); }
+.tagline-box .corner-tr-h { top: 0; right: 0; height: 1px; width: 4px; position: absolute; background: var(--slate); }
+.tagline-box .corner-tr-v { top: 0; right: 0; height: 4px; width: 1px; position: absolute; background: var(--slate); }
+.tagline-box .corner-bl-h { bottom: 0; left: 0; height: 1px; width: 4px; position: absolute; background: var(--slate); }
+.tagline-box .corner-bl-v { bottom: 0; left: 0; height: 4px; width: 1px; position: absolute; background: var(--slate); }
+.tagline-box .corner-br-h { bottom: 0; right: 0; height: 1px; width: 4px; position: absolute; background: var(--slate); }
+.tagline-box .corner-br-v { bottom: 0; right: 0; height: 4px; width: 1px; position: absolute; background: var(--slate); }
+
+.tagline {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  line-height: 1.5;
+  letter-spacing: 0em;
+  text-transform: uppercase;
+  color: var(--slate);
+  text-align: justify;
+}
+
+.btn-group {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 4px;
+  width: 200px;
+}
+
+/* Primary pill button */
+.btn-pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--slate);
+  color: var(--white);
+  border: none;
+  border-radius: 788px;
+  cursor: pointer;
+  text-decoration: none;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0em;
+  text-transform: uppercase;
+  padding: 0 16px;
+  height: 36px;
+  white-space: nowrap;
+  transition: opacity 0.15s;
+  flex: 1;
+}
+
+.btn-pill:hover { opacity: 0.82; }
+
+/* Icon pill button */
+.btn-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--white);
+  border: none;
+  border-radius: 788px;
+  width: 36px;
+  height: 36px;
+  cursor: pointer;
+  text-decoration: none;
+  flex-shrink: 0;
+  transition: opacity 0.15s;
+  position: relative;
+  overflow: hidden;
+  box-shadow: inset 0 0 0 1px rgba(56,80,92,0.2);
+}
+
+.btn-icon:hover { opacity: 0.72; }
+
+.btn-icon svg {
+  width: 18px;
+  height: 18px;
+  stroke: var(--slate);
+  fill: none;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* ── GIANT TITLE ── */
+.title-wrap {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 24px 23px 0 47px;
+}
+
+.title-bg {
+  position: absolute;
+  inset: 24px 0 0;
+  background: rgba(56,80,92,0.05);
+  overflow: hidden;
+}
+
+.title-bg::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(circle, rgba(56,80,92,0.18) 1px, transparent 1px);
+  background-size: 20px 20px;
+  opacity: 0.35;
+}
+
+.title-bg-top { position: absolute; top: 0; left: 0; right: 0; height: 1px; background: rgba(56,80,92,0.1); }
+.title-bg-bot { position: absolute; bottom: 0; left: 0; right: 0; height: 1px; background: rgba(56,80,92,0.1); }
+
+.site-title {
+  font-family: var(--font-display);
+  font-size: clamp(100px, 17vw, 265px);
+  font-weight: 600;
+  letter-spacing: -0.06em;
+  line-height: 0.9em;
+  text-align: center;
+  color: var(--slate);
+  width: 111%;
+  position: relative;
+  z-index: 1;
+  user-select: none;
+  /* Trifold uses custom letter spacing on individual letters */
+}
+
+.site-title .t { letter-spacing: -0.21em; }
+.site-title .r { letter-spacing: -0.03em; }
+.site-title .f { letter-spacing: -0.07em; }
+.site-title .d { letter-spacing: -0.03em; }
+
+/* Highlight/mark background behind title text */
+mark {
+  background: rgba(56,80,92,0.08);
+  color: inherit;
+  padding: 0;
+}
+
+/* ── SECTION TABS (About / Skills / Projects / Contact) ── */
+.section-tabs {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  padding: 0 24px 0 48px;
+  overflow: auto;
+  scrollbar-width: none;
+}
+
+.section-tabs::-webkit-scrollbar { display: none; }
+
+/* Spacer that pushes content to bottom */
+.tabs-spacer { flex: 1; min-height: 0; }
+
+/* ── NAV SECTION: section selector ── */
+.section-nav {
+  display: none; /* hidden, controlled by JS */
+}
+
+/* ── PROJECT / SECTION ROWS ── */
+.entry-row {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 0;
+  cursor: pointer;
+  text-decoration: none;
+  position: relative;
+  transition: background 0.12s;
+}
+
+.entry-row::before {
+  content: '';
+  position: absolute;
+  top: 0; left: -48px; right: -24px;
+  height: 1px;
+  background: rgba(56,80,92,0.25);
+}
+
+/* Hover background shimmer (dot texture) */
+.entry-row::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  left: -48px; right: -24px;
+  background-image: radial-gradient(circle, rgba(56,80,92,0.12) 1px, transparent 1px);
+  background-size: 20px 20px;
+  opacity: 0;
+  transition: opacity 0.15s;
+  pointer-events: none;
+}
+
+.entry-row:hover::after { opacity: 1; }
+
+.entry-left {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 50%;
+  gap: 0;
+}
+
+.entry-name {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  text-transform: uppercase;
+  color: var(--slate);
+  letter-spacing: 0em;
+  flex: 1;
+}
+
+/* Tag pills row */
+.tag-row {
+  display: inline-flex;
+  align-items: center;
+  gap: 0;
+  background: var(--slate);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.tag-sep {
+  width: 3px;
+  align-self: stretch;
+  background-image: radial-gradient(circle, rgba(255,255,255,0.4) 1px, transparent 1px);
+  background-size: 4px 4px;
+  flex-shrink: 0;
+}
+
+.tag-pill {
+  background: var(--white);
+  border-radius: 2px;
+  padding: 0 4px;
+  height: 20px;
+  display: inline-flex;
+  align-items: center;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  text-transform: uppercase;
+  color: var(--slate);
+  white-space: nowrap;
+}
+
+.entry-right {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0;
+  width: 200px;
+}
+
+.entry-year {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  text-transform: uppercase;
+  color: var(--slate);
+  letter-spacing: 0em;
+  flex: 1;
+}
+
+.entry-arrow {
+  width: 16px;
+  height: 16px;
+  opacity: 0.5;
+  flex-shrink: 0;
+}
+
+.entry-arrow svg {
+  width: 16px;
+  height: 16px;
+  stroke: var(--slate);
+  fill: none;
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* ── FOOTER ── */
+.panel-footer {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  padding: 0 24px 0 48px;
+}
+
+.footer-line {
+  height: 24px;
+  background-image: radial-gradient(circle, rgba(56,80,92,0.25) 1px, transparent 1px);
+  background-size: 20px 20px;
+  width: 100%;
+  opacity: 0.5;
+  margin-bottom: 0;
+}
+
+.footer-content {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 24px 0 0;
+}
+
+.footer-left {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 8px;
+  flex: 1;
+}
+
+.footer-copy {
+  font-family: var(--font-body);
+  font-size: 14px;
+  color: var(--slate);
+}
+
+.footer-name {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  text-transform: uppercase;
+  color: var(--slate);
+  opacity: 0.5;
+}
+
+.footer-icons {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 4px;
+  width: 200px;
+  justify-content: flex-end;
+}
+
+.icon-pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  background: var(--slate);
+  border-radius: 788px;
+  text-decoration: none;
+  transition: opacity 0.15s;
+  flex-shrink: 0;
+}
+
+.icon-pill:hover { opacity: 0.72; }
+
+.icon-pill svg {
+  width: 12px;
+  height: 12px;
+  stroke: var(--white);
+  fill: none;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* ─── RIGHT PANEL ─── */
+.panel-right {
+  width: 50%;
+  position: relative;
+  overflow: hidden;
+  flex-shrink: 0;
+  background: #000;
+}
+
+/* Grid overlay lines on right panel */
+.right-grid {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.rg-outer { width: 23px; background: rgba(255,255,255,0.10); }
+.rg-thin { width: 1px; background: rgba(255,255,255,0.25); }
+.rg-flex { flex: 1; }
+.rg-dots {
+  background-image: radial-gradient(circle, rgba(255,255,255,0.5) 1px, transparent 1px);
+  background-size: 5px 5px;
+}
+
+/* Full bleed image */
+.right-image {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+
+.right-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+}
+
+/* Image placeholder when no photo uploaded */
+.right-placeholder {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(160deg, #2a3a44 0%, #1a2830 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.placeholder-text {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: rgba(255,255,255,0.25);
+  text-align: center;
+  line-height: 2;
+}
+
+/* Bottom detail panel (slides up on project hover) */
+.right-detail {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  z-index: 4;
+  background: var(--white);
+  opacity: 0;
+  transform: translateY(100%);
+  transition: opacity 0.3s, transform 0.4s cubic-bezier(0.22,1,0.36,1);
+  padding: 0 48px 0 48px;
+}
+
+.right-detail.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.detail-top { height: 24px; background-image: radial-gradient(circle, rgba(56,80,92,0.25) 1px, transparent 1px); background-size: 20px 20px; opacity: 0.5; }
+
+.detail-body {
+  padding: 24px 0 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.detail-desc {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  text-transform: uppercase;
+  color: var(--slate);
+  max-width: 55%;
+  line-height: 1.5;
+  text-align: justify;
+}
+
+.detail-contact {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--slate);
+  color: var(--white);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  padding: 0 16px;
+  height: 36px;
+  border-radius: 788px;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+  transition: opacity 0.15s;
+}
+
+.detail-contact:hover { opacity: 0.8; }
+
+/* Scrolling project title repeater */
+.title-repeater {
+  padding: 48px 0 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.title-divider { height: 2px; background: var(--slate); width: 100%; }
+
+.repeating-title {
+  font-family: var(--font-display);
+  font-size: clamp(32px, 4.5vw, 96px);
+  font-weight: 600;
+  letter-spacing: -0.04em;
+  line-height: 1.25em;
+  color: var(--slate);
+  padding: 24px 0;
+  border-bottom: none;
+  white-space: nowrap;
+}
+
+/* ── SECTION PAGES ── */
+/* The left panel hosts scrollable section content below the project rows */
+/* Shown via active-section switching */
+
+.section-page {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  background: var(--white);
+  overflow: auto;
+  animation: fadeIn 0.25s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.section-page.open { display: flex; flex-direction: column; }
+
+.page-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 24px 48px;
+  border-bottom: 1px solid var(--border-25);
+  flex-shrink: 0;
+}
+
+.page-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  text-transform: uppercase;
+  color: var(--slate);
+  padding: 0;
+  transition: opacity 0.15s;
+}
+
+.page-back:hover { opacity: 0.6; }
+
+.page-back svg {
+  width: 14px; height: 14px;
+  stroke: var(--slate); fill: none;
+  stroke-width: 2; stroke-linecap: round; stroke-linejoin: round;
+}
+
+.page-title-mono {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  text-transform: uppercase;
+  color: var(--slate);
+  opacity: 0.5;
+}
+
+.page-body { flex: 1; padding: 0 48px 48px; }
+
+/* About page */
+.about-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 64px;
+  padding-top: 48px;
+  align-items: start;
+}
+
+.about-big-title {
+  font-family: var(--font-display);
+  font-size: clamp(48px, 8vw, 96px);
+  font-weight: 600;
+  letter-spacing: -0.04em;
+  line-height: 1.25em;
+  color: var(--slate);
+  margin-bottom: 32px;
+}
+
+.about-body {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  text-transform: uppercase;
+  color: var(--slate);
+  line-height: 1.5;
+  text-align: justify;
+}
+
+.about-table { width: 100%; margin-top: 32px; }
+
+.about-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--border-25);
+}
+
+.about-row:first-child { border-top: 1px solid var(--border-25); }
+
+.about-key {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  text-transform: uppercase;
+  color: rgba(56,80,92,0.5);
+}
+
+.about-val {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  text-transform: uppercase;
+  color: var(--slate);
+  text-align: right;
+}
+
+/* Skills page */
+.skills-list { padding-top: 0; }
+
+.skill-entry {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 0;
+  border-bottom: 1px solid var(--border-25);
+}
+
+.skill-entry:first-child { border-top: 1px solid var(--border-25); margin-top: 48px; }
+
+.skill-name {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  text-transform: uppercase;
+  color: var(--slate);
+  flex: 1;
+}
+
+.skill-tags { display: flex; gap: 4px; flex-wrap: wrap; justify-content: flex-end; }
+
+/* Challenge / contact page */
+.challenge-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 64px;
+  padding-top: 48px;
+  align-items: start;
+}
+
+.challenge-big-title {
+  font-family: var(--font-display);
+  font-size: clamp(48px, 8vw, 96px);
+  font-weight: 600;
+  letter-spacing: -0.04em;
+  line-height: 1.25em;
+  color: var(--slate);
+  margin-bottom: 24px;
+}
+
+.challenge-sub {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  text-transform: uppercase;
+  color: rgba(56,80,92,0.6);
+  line-height: 1.5;
+  margin-bottom: 32px;
+}
+
+.form-field { margin-bottom: 16px; }
+
+.form-label {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  text-transform: uppercase;
+  color: rgba(56,80,92,0.5);
+  margin-bottom: 6px;
+  letter-spacing: 0.04em;
+}
+
+.form-input, .form-textarea {
+  width: 100%;
+  background: transparent;
+  border: 1px solid var(--border-25);
+  border-radius: 0;
+  padding: 10px 12px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  text-transform: uppercase;
+  color: var(--slate);
+  outline: none;
+  transition: border-color 0.15s;
+  resize: none;
+  -webkit-appearance: none;
+}
+
+.form-input:focus, .form-textarea:focus {
+  border-color: var(--slate);
+}
+
+.form-textarea { min-height: 100px; }
+
+/* ── MOBILE ── */
+@media (max-width: 900px) {
+  .frame { flex-direction: column; height: auto; overflow: visible; }
+  .panel-left { width: 100%; min-height: auto; }
+  .panel-right { width: 100%; height: 60vw; min-height: 300px; }
+  .site-title { font-size: clamp(56px, 18vw, 140px); }
+  .about-grid, .challenge-layout { grid-template-columns: 1fr; gap: 32px; }
+  .left-header { padding: 24px 24px 0; }
+  .panel-footer { padding: 0 24px; }
+  .section-tabs { padding: 0 24px; }
+  .title-wrap { padding: 24px 24px 0; }
+  .entry-row::before { left: -24px; right: -24px; }
+  .entry-row::after { left: -24px; right: -24px; }
+  .page-header { padding: 24px; }
+  .page-body { padding: 0 24px 48px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .right-detail { transition: none; }
+  .section-page { animation: none; }
+}
+</style>
+</head>
+<body>
+<div class="site">
+<div class="frame">
+
+  <!-- ══ LEFT PANEL ══ -->
+  <section class="panel-left">
+    <!-- Background grid lines -->
+    <div class="grid-lines" aria-hidden="true">
+      <div class="grid-line gl-outer"></div>
+      <div class="grid-line gl-thin" style="background:rgba(56,80,92,0.35)"></div>
+      <div class="grid-line gl-flex"></div>
+      <div class="grid-line gl-thin"></div>
+      <div class="grid-line gl-flex"></div>
+      <div class="grid-line gl-thin"></div>
+      <div class="grid-line gl-outer"></div>
+    </div>
+
+    <!-- Top spacer bar -->
+    <div class="top-bar" aria-hidden="true"></div>
+
+    <!-- Header: tagline + CTA buttons -->
+    <div class="left-header">
+      <div class="tagline-box">
+        <span class="corner-tl-h" aria-hidden="true"></span>
+        <span class="corner-tl-v" aria-hidden="true"></span>
+        <span class="corner-tr-h" aria-hidden="true"></span>
+        <span class="corner-tr-v" aria-hidden="true"></span>
+        <span class="corner-bl-h" aria-hidden="true"></span>
+        <span class="corner-bl-v" aria-hidden="true"></span>
+        <span class="corner-br-h" aria-hidden="true"></span>
+        <span class="corner-br-v" aria-hidden="true"></span>
+        <p class="tagline">CS Student building things that matter, one commit at a time</p>
+      </div>
+      <div class="btn-group">
+        <a class="btn-pill" href="#" onclick="openSection('challenge'); return false;">Challenge Me</a>
+        <a class="btn-icon" href="mailto:you@email.com" title="Email">
+          <svg viewBox="0 0 24 24"><path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+        </a>
+      </div>
+    </div>
+
+    <!-- Giant title -->
+    <div class="title-wrap">
+      <div class="title-bg" aria-hidden="true">
+        <div class="title-bg-top"></div>
+        <div class="title-bg-bot"></div>
+      </div>
+      <h1 class="site-title" aria-label="Your Name">
+        <mark><span class="t">Y</span><span class="r">o</span>u<span class="f">r</span> <span class="t">N</span>a<span class="d">m</span>e</mark>
+      </h1>
+    </div>
+
+    <!-- Section entry rows -->
+    <div class="section-tabs">
+      <div class="tabs-spacer"></div>
+
+      <!-- About row -->
+      <div class="entry-row" onclick="openSection('about')" tabindex="0" role="button" aria-label="About section">
+        <div class="entry-left">
+          <span class="entry-name">About</span>
+          <div class="tag-row">
+            <div class="tag-sep"></div>
+            <span class="tag-pill">CS Student</span>
+            <div class="tag-sep"></div>
+            <span class="tag-pill">2026</span>
+            <div class="tag-sep"></div>
+          </div>
+        </div>
+        <div class="entry-right">
+          <span class="entry-year">Background</span>
+          <span class="entry-arrow"><svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+        </div>
+      </div>
+
+      <!-- Skills row -->
+      <div class="entry-row" onclick="openSection('skills')" tabindex="0" role="button" aria-label="Skills section">
+        <div class="entry-left">
+          <span class="entry-name">Skills</span>
+          <div class="tag-row">
+            <div class="tag-sep"></div>
+            <span class="tag-pill">Python</span>
+            <div class="tag-sep"></div>
+            <span class="tag-pill">JS</span>
+            <div class="tag-sep"></div>
+            <span class="tag-pill">React</span>
+            <div class="tag-sep"></div>
+          </div>
+        </div>
+        <div class="entry-right">
+          <span class="entry-year">Toolkit</span>
+          <span class="entry-arrow"><svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+        </div>
+      </div>
+
+      <!-- Project 1 -->
+      <div class="entry-row" data-idx="0" onclick="showProject(0)" tabindex="0" role="button" aria-label="Project Alpha">
+        <div class="entry-left">
+          <span class="entry-name">Project Alpha</span>
+          <div class="tag-row">
+            <div class="tag-sep"></div>
+            <span class="tag-pill">Web</span>
+            <div class="tag-sep"></div>
+            <span class="tag-pill">React</span>
+            <div class="tag-sep"></div>
+          </div>
+        </div>
+        <div class="entry-right">
+          <span class="entry-year">2026</span>
+          <span class="entry-arrow"><svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+        </div>
+      </div>
+
+      <!-- Project 2 -->
+      <div class="entry-row" data-idx="1" onclick="showProject(1)" tabindex="0" role="button" aria-label="ML Classifier">
+        <div class="entry-left">
+          <span class="entry-name">ML Classifier</span>
+          <div class="tag-row">
+            <div class="tag-sep"></div>
+            <span class="tag-pill">ML</span>
+            <div class="tag-sep"></div>
+            <span class="tag-pill">Python</span>
+            <div class="tag-sep"></div>
+          </div>
+        </div>
+        <div class="entry-right">
+          <span class="entry-year">2025</span>
+          <span class="entry-arrow"><svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+        </div>
+      </div>
+
+      <!-- Project 3 -->
+      <div class="entry-row" data-idx="2" onclick="showProject(2)" tabindex="0" role="button" aria-label="CLI Dev Tool">
+        <div class="entry-left">
+          <span class="entry-name">CLI Dev Tool</span>
+          <div class="tag-row">
+            <div class="tag-sep"></div>
+            <span class="tag-pill">Open Source</span>
+            <div class="tag-sep"></div>
+            <span class="tag-pill">Bash</span>
+            <div class="tag-sep"></div>
+          </div>
+        </div>
+        <div class="entry-right">
+          <span class="entry-year">2025</span>
+          <span class="entry-arrow"><svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+        </div>
+      </div>
+
+      <!-- Project 4 -->
+      <div class="entry-row" data-idx="3" onclick="showProject(3)" tabindex="0" role="button" aria-label="Distributed System">
+        <div class="entry-left">
+          <span class="entry-name">Distributed System</span>
+          <div class="tag-row">
+            <div class="tag-sep"></div>
+            <span class="tag-pill">Java</span>
+            <div class="tag-sep"></div>
+            <span class="tag-pill">Systems</span>
+            <div class="tag-sep"></div>
+          </div>
+        </div>
+        <div class="entry-right">
+          <span class="entry-year">2024</span>
+          <span class="entry-arrow"><svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+        </div>
+      </div>
+
+    </div><!-- /section-tabs -->
+
+    <!-- Footer -->
+    <footer class="panel-footer">
+      <div class="footer-line" aria-hidden="true"></div>
+      <div class="footer-content">
+        <div class="footer-left">
+          <span class="footer-copy">©</span>
+          <span class="footer-name">Your Name 2026</span>
+        </div>
+        <div class="footer-icons">
+          <a class="icon-pill" href="https://github.com/" target="_blank" rel="noopener" title="GitHub">
+            <svg viewBox="0 0 24 24"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22"/></svg>
+          </a>
+          <a class="icon-pill" href="https://linkedin.com/" target="_blank" rel="noopener" title="LinkedIn">
+            <svg viewBox="0 0 24 24"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg>
+          </a>
+          <a class="icon-pill" href="https://x.com/" target="_blank" rel="noopener" title="X / Twitter">
+            <svg viewBox="0 0 24 24"><path d="M4 4l6.5 7L4 20h3l5-5.5 4 5.5h5l-7-9.5L19.5 4H17l-4.5 5L8 4H4z"/></svg>
+          </a>
+          <a class="icon-pill" href="mailto:you@email.com" title="Email">
+            <svg viewBox="0 0 24 24"><path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+          </a>
+        </div>
+      </div>
+    </footer>
+
+  </section><!-- /panel-left -->
+
+  <!-- ══ RIGHT PANEL ══ -->
+  <div class="panel-right">
+    <!-- Background image -->
+    <div class="right-image">
+      <!-- Replace src with your photo path once uploaded -->
+      <div class="right-placeholder">
+        <p class="placeholder-text">Your photo<br>goes here<br><br>Upload an image<br>and set as src</p>
+      </div>
+    </div>
+
+    <!-- Grid overlay (matches original) -->
+    <div class="right-grid" aria-hidden="true">
+      <div class="rg-outer"></div>
+      <div class="rg-thin"></div>
+      <div class="rg-flex"></div>
+      <div class="rg-thin"></div>
+      <div class="rg-flex"></div>
+      <div class="rg-thin"></div>
+      <div class="rg-outer rg-dots"></div>
+    </div>
+
+    <!-- Detail panel (slides up when project clicked) -->
+    <div class="right-detail" id="right-detail" aria-live="polite">
+      <div class="detail-top" aria-hidden="true"></div>
+      <div class="detail-body">
+        <p class="detail-desc" id="detail-desc">Select a project to see details.</p>
+        <a class="detail-contact" id="detail-link" href="#" target="_blank" rel="noopener">View Project →</a>
+      </div>
+      <div class="title-repeater" id="title-repeater" aria-hidden="true"></div>
+    </div>
+  </div>
+
+</div><!-- /frame -->
+</div><!-- /site -->
+
+<!-- ══ SECTION PAGES ══ -->
+
+<!-- About -->
+<div class="section-page" id="page-about" role="dialog" aria-modal="true" aria-label="About">
+  <div class="page-header">
+    <button class="page-back" onclick="closeSection()" aria-label="Go back">
+      <svg viewBox="0 0 24 24"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+      Back
+    </button>
+    <span class="page-title-mono">01 / About</span>
+  </div>
+  <div class="page-body">
+    <div class="about-grid">
+      <div>
+        <h2 class="about-big-title">Who I Am.</h2>
+        <p class="about-body">I'm <strong>Your Name</strong>, a Computer Science student at <strong>Your University</strong> in my final year. I'm drawn to the place where engineering meets real-world impact — where a clean solution to a messy problem makes something genuinely better.<br><br>I gravitate toward web development, algorithms, and anything that challenges me to think differently. I believe software at its best is invisible — it just works.<br><br>Outside the editor, I'm drawn to competitive programming, reading about system design, and contributing to open source wherever I can.</p>
+      </div>
+      <div>
+        <div class="about-table">
+          <div class="about-row"><span class="about-key">University</span><span class="about-val">Your University</span></div>
+          <div class="about-row"><span class="about-key">Degree</span><span class="about-val">BSc Computer Science</span></div>
+          <div class="about-row"><span class="about-key">Year</span><span class="about-val">3rd Year · 2026</span></div>
+          <div class="about-row"><span class="about-key">Based in</span><span class="about-val">Your City</span></div>
+          <div class="about-row"><span class="about-key">Status</span><span class="about-val" style="color:rgb(56,80,92);font-weight:700">Open to internships</span></div>
+          <div class="about-row"><span class="about-key">Interests</span><span class="about-val">Compilers · Systems · OSS</span></div>
+          <div class="about-row"><span class="about-key">Languages</span><span class="about-val">English · Other</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Skills -->
+<div class="section-page" id="page-skills" role="dialog" aria-modal="true" aria-label="Skills">
+  <div class="page-header">
+    <button class="page-back" onclick="closeSection()" aria-label="Go back">
+      <svg viewBox="0 0 24 24"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+      Back
+    </button>
+    <span class="page-title-mono">02 / Skills</span>
+  </div>
+  <div class="page-body">
+    <div class="skills-list">
+      <div class="skill-entry">
+        <span class="skill-name">Python</span>
+        <div class="skill-tags">
+          <span class="tag-pill" style="background:var(--slate);color:var(--white)">ML</span>
+          <span class="tag-pill" style="background:var(--slate);color:var(--white)">Scripting</span>
+          <span class="tag-pill" style="background:var(--slate);color:var(--white)">Data</span>
+        </div>
+      </div>
+      <div class="skill-entry">
+        <span class="skill-name">JavaScript / TypeScript</span>
+        <div class="skill-tags">
+          <span class="tag-pill" style="background:var(--slate);color:var(--white)">Frontend</span>
+          <span class="tag-pill" style="background:var(--slate);color:var(--white)">Node.js</span>
+        </div>
+      </div>
+      <div class="skill-entry">
+        <span class="skill-name">React</span>
+        <div class="skill-tags">
+          <span class="tag-pill" style="background:var(--slate);color:var(--white)">UI</span>
+          <span class="tag-pill" style="background:var(--slate);color:var(--white)">Hooks</span>
+          <span class="tag-pill" style="background:var(--slate);color:var(--white)">State</span>
+        </div>
+      </div>
+      <div class="skill-entry">
+        <span class="skill-name">SQL & Databases</span>
+        <div class="skill-tags">
+          <span class="tag-pill" style="background:var(--slate);color:var(--white)">PostgreSQL</span>
+          <span class="tag-pill" style="background:var(--slate);color:var(--white)">SQLite</span>
+        </div>
+      </div>
+      <div class="skill-entry">
+        <span class="skill-name">Algorithms & DSA</span>
+        <div class="skill-tags">
+          <span class="tag-pill" style="background:var(--slate);color:var(--white)">Graphs</span>
+          <span class="tag-pill" style="background:var(--slate);color:var(--white)">DP</span>
+          <span class="tag-pill" style="background:var(--slate);color:var(--white)">Competitive</span>
+        </div>
+      </div>
+      <div class="skill-entry">
+        <span class="skill-name">Git & Collaboration</span>
+        <div class="skill-tags">
+          <span class="tag-pill" style="background:var(--slate);color:var(--white)">GitHub</span>
+          <span class="tag-pill" style="background:var(--slate);color:var(--white)">PR Workflows</span>
+        </div>
+      </div>
+      <div class="skill-entry">
+        <span class="skill-name">Java</span>
+        <div class="skill-tags">
+          <span class="tag-pill" style="background:var(--slate);color:var(--white)">OOP</span>
+          <span class="tag-pill" style="background:var(--slate);color:var(--white)">Concurrency</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Challenge Me -->
+<div class="section-page" id="page-challenge" role="dialog" aria-modal="true" aria-label="Challenge Me">
+  <div class="page-header">
+    <button class="page-back" onclick="closeSection()" aria-label="Go back">
+      <svg viewBox="0 0 24 24"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+      Back
+    </button>
+    <span class="page-title-mono">04 / Contact</span>
+  </div>
+  <div class="page-body">
+    <div class="challenge-layout">
+      <div>
+        <h2 class="challenge-big-title">Got a hard problem?</h2>
+        <p class="challenge-sub">Whether it's an internship, a collab, or a puzzle you think can't be solved — drop it here. I reply within 24 hours.</p>
+      </div>
+      <form onsubmit="submitForm(event)">
+        <div class="form-field">
+          <label class="form-label" for="cf-name">Your Name</label>
+          <input class="form-input" id="cf-name" type="text" placeholder="Jane Smith" required>
+        </div>
+        <div class="form-field">
+          <label class="form-label" for="cf-email">Email</label>
+          <input class="form-input" id="cf-email" type="email" placeholder="jane@company.com" required>
+        </div>
+        <div class="form-field">
+          <label class="form-label" for="cf-msg">The Challenge</label>
+          <textarea class="form-textarea" id="cf-msg" placeholder="Describe the problem, the opportunity, or the idea..." required></textarea>
+        </div>
+        <button class="btn-pill" type="submit" id="form-submit" style="width:auto;padding:0 24px;">Send →</button>
+      </form>
+    </div>
+  </div>
+</div>
+
+<script>
+  // Project data
+  const projects = [
+    {
+      name: 'Project Alpha',
+      desc: 'A full-stack web app that solves a real problem. Built with React on the frontend and Node.js on the backend. Focused on clean UX and performance under load.',
+      url: '#',
+      link: 'View Project →'
+    },
+    {
+      name: 'ML Classifier',
+      desc: 'Trained a multi-class classifier on a custom dataset, achieving 94% accuracy. Explored feature engineering, cross-validation, and model interpretability.',
+      url: '#',
+      link: 'View on GitHub →'
+    },
+    {
+      name: 'CLI Dev Tool',
+      desc: 'A command-line tool that automated a repetitive dev workflow, saving hours per week. Published as open source with docs and a test suite.',
+      url: '#',
+      link: 'View on GitHub →'
+    },
+    {
+      name: 'Distributed System',
+      desc: 'Designed and implemented a fault-tolerant distributed system — part of advanced coursework. Covered leader election, replication, and network partitions.',
+      url: '#',
+      link: 'View Report →'
+    }
+  ];
+
+  let activeProject = -1;
+
+  function showProject(idx) {
+    const detail = document.getElementById('right-detail');
+    const desc = document.getElementById('detail-desc');
+    const link = document.getElementById('detail-link');
+    const repeater = document.getElementById('title-repeater');
+
+    const p = projects[idx];
+    desc.textContent = p.desc;
+    link.textContent = p.link;
+    link.href = p.url;
+
+    // Build repeating title (9 lines like original)
+    repeater.innerHTML = `<div class="title-divider"></div>` +
+      Array(9).fill(`<p class="repeating-title">${p.name}</p><div class="title-divider"></div>`).join('');
+
+    // Highlight active row
+    document.querySelectorAll('.entry-row[data-idx]').forEach((r, i) => {
+      r.style.background = i === idx ? 'rgba(56,80,92,0.06)' : '';
+    });
+
+    activeProject = idx;
+    detail.classList.add('visible');
+  }
+
+  function openSection(id) {
+    const page = document.getElementById('page-' + id);
+    if (page) {
+      page.classList.add('open');
+      page.focus();
+    }
+  }
+
+  function closeSection() {
+    document.querySelectorAll('.section-page.open').forEach(p => p.classList.remove('open'));
+  }
+
+  // Keyboard accessibility for entry rows
+  document.querySelectorAll('.entry-row').forEach(row => {
+    row.addEventListener('keydown', e => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        row.click();
+      }
+    });
+  });
+
+  // Close section on Escape
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') closeSection();
+  });
+
+  function submitForm(e) {
+    e.preventDefault();
+    const btn = document.getElementById('form-submit');
+    btn.textContent = 'Sent ✓';
+    btn.style.background = 'rgb(42,157,92)';
+    btn.disabled = true;
+    setTimeout(() => {
+      btn.textContent = 'Send →';
+      btn.style.background = '';
+      btn.disabled = false;
+      e.target.reset();
+    }, 3000);
+  }
+</script>
+</body>
+</html>
