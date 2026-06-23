@@ -85,7 +85,9 @@
            role="button"
            tabindex="0"
            aria-label="About Yasri Ishimwe"
-           data-section="about">
+           data-section="about"
+           style="--accent:#C75D3D; --accent-soft:rgba(199,93,61,0.10);">
+        <div class="entry-accent-bar" aria-hidden="true"></div>
         <div class="entry-left">
           <span class="entry-name">About</span>
           <div class="tag-cluster" aria-label="Tags: CS Student, Berlin">
@@ -109,7 +111,9 @@
            role="button"
            tabindex="0"
            aria-label="Yasri's skills"
-           data-section="skills">
+           data-section="skills"
+           style="--accent:#3A6EA5; --accent-soft:rgba(58,110,165,0.10);">
+        <div class="entry-accent-bar" aria-hidden="true"></div>
         <div class="entry-left">
           <span class="entry-name">Skills</span>
           <div class="tag-cluster" aria-label="Tags: HTML CSS JS">
@@ -135,7 +139,9 @@
            role="button"
            tabindex="0"
            aria-label="Project: Personal Portfolio"
-           data-idx="0">
+           data-idx="0"
+           style="--accent:#7B5EA7; --accent-soft:rgba(123,94,167,0.10);">
+        <div class="entry-accent-bar" aria-hidden="true"></div>
         <div class="entry-left">
           <span class="entry-name">Personal Portfolio</span>
           <div class="tag-cluster" aria-label="Tags: Web, HTML/CSS/JS">
@@ -159,7 +165,9 @@
            role="button"
            tabindex="0"
            aria-label="Project: Logistics Tracker"
-           data-idx="1">
+           data-idx="1"
+           style="--accent:#4C8C5B; --accent-soft:rgba(76,140,91,0.10);">
+        <div class="entry-accent-bar" aria-hidden="true"></div>
         <div class="entry-left">
           <span class="entry-name">Logistics Tracker</span>
           <div class="tag-cluster" aria-label="Tags: Operations, Excel">
@@ -183,7 +191,9 @@
            role="button"
            tabindex="0"
            aria-label="Project: Digital Brand"
-           data-idx="2">
+           data-idx="2"
+           style="--accent:#B14C7C; --accent-soft:rgba(177,76,124,0.10);">
+        <div class="entry-accent-bar" aria-hidden="true"></div>
         <div class="entry-left">
           <span class="entry-name">Digital Brand</span>
           <div class="tag-cluster" aria-label="Tags: LaTeX, LinkedIn">
@@ -207,7 +217,9 @@
            role="button"
            tabindex="0"
            aria-label="Project: Intelligent Systems (in progress)"
-           data-idx="3">
+           data-idx="3"
+           style="--accent:#B8862E; --accent-soft:rgba(184,134,46,0.10);">
+        <div class="entry-accent-bar" aria-hidden="true"></div>
         <div class="entry-left">
           <span class="entry-name">Intelligent Systems</span>
           <div class="tag-cluster" aria-label="Tags: AI, In Progress">
@@ -274,7 +286,7 @@
        ════════════════════════════════════════════ -->
   <div class="panel-right" aria-label="Cover image and project detail" role="complementary">
 
-    <!-- Cover image — replace src with your photo -->
+    <!-- Cover image — replace src with your photo. This is the default/base layer. -->
     <div class="cover-image-wrap" id="cover-img" aria-hidden="true">
       <!-- PHOTO: drop your image file next to index.html and update this src -->
       <!-- <img src="your-photo.jpg" alt="Yasri Ishimwe"> -->
@@ -290,6 +302,12 @@
       </div>
     </div>
 
+    <!-- Project preview image — crossfades over the cover photo on hover.
+         Each project gets its own full-bleed visual instead of text. -->
+    <div class="project-image-wrap" id="project-img" aria-hidden="true">
+      <div class="project-image-inner" id="project-img-inner"></div>
+    </div>
+
     <!-- Grid lines overlay -->
     <div class="right-grid" aria-hidden="true">
       <div class="rg rg-outer"></div>
@@ -301,14 +319,16 @@
       <div class="rg rg-outer rg-dots"></div>
     </div>
 
-    <!-- Project detail card (hidden until a project is clicked) -->
+    <!-- Minimal project info strip — name, tags, link. The picture does the talking. -->
     <div class="detail-card" id="detail-card" role="region" aria-live="polite" aria-label="Project detail">
-      <div class="detail-texture" aria-hidden="true"></div>
+      <div class="detail-scrim" aria-hidden="true"></div>
       <div class="detail-body">
-        <p class="detail-desc" id="detail-desc"></p>
+        <div class="detail-text">
+          <p class="detail-name" id="detail-name"></p>
+          <p class="detail-desc" id="detail-desc"></p>
+        </div>
         <a class="detail-btn" id="detail-btn" href="#" target="_blank" rel="noopener">View Project</a>
       </div>
-      <div class="title-stack" id="title-stack" aria-hidden="true"></div>
     </div>
 
   </div><!-- /panel-right -->
@@ -533,40 +553,59 @@
 <script>
 'use strict';
 
-/* ── Project data ── */
+/* ── Project data ──
+   `image`: path to a real screenshot. Drop your image file next to
+   index.html (e.g. in an /images folder) and set the path here —
+   it will replace the colored placeholder automatically.
+   `accent` / `accentDark`: used for the placeholder gradient and
+   must match the --accent set inline on the row in the HTML. */
 const PROJECTS = [
   {
     name:  'Personal Portfolio',
     desc:  'Built my personal brand online during my first semester at Gisma. Designed and developed from scratch using HTML5, CSS3, and JavaScript — hosted on GitHub Pages.',
     url:   'https://github.com/',
-    label: 'View on GitHub →'
+    label: 'View on GitHub →',
+    image: null,
+    accent: '#7B5EA7',
+    accentDark: '#4A3766'
   },
   {
     name:  'Logistics Tracker',
     desc:  'During my internship at Kirehe Imirasire Company Ltd (2023–2025), I tracked dispatch, driver schedules, and vehicle maintenance across a fleet — coordinating operations under the Operations Manager.',
     url:   '#',
-    label: 'See Details →'
+    label: 'See Details →',
+    image: null,
+    accent: '#4C8C5B',
+    accentDark: '#2E5538'
   },
   {
     name:  'Digital Brand',
     desc:  'Built a professional online presence: a typeset CV in LaTeX and a LinkedIn profile that communicates my vision as an aspiring tech founder and engineer. Clean, purposeful, and recruiters notice it.',
     url:   'https://linkedin.com/in/yasri-ishimwe',
-    label: 'View LinkedIn →'
+    label: 'View LinkedIn →',
+    image: null,
+    accent: '#B14C7C',
+    accentDark: '#6B2D4A'
   },
   {
     name:  'Intelligent Systems',
     desc:  'In progress — my long-term goal. Building towards systems that redefine what machines can do. Currently exploring AI fundamentals as part of my BSc CS at Gisma, Berlin (2026–present).',
     url:   '#',
-    label: 'Stay Tuned →'
+    label: 'Stay Tuned →',
+    image: null,
+    accent: '#B8862E',
+    accentDark: '#6E4F1B'
   }
 ];
 
 /* ── DOM refs ── */
-const coverImg   = document.getElementById('cover-img');
-const detailCard = document.getElementById('detail-card');
-const detailDesc = document.getElementById('detail-desc');
-const detailBtn  = document.getElementById('detail-btn');
-const titleStack = document.getElementById('title-stack');
+const coverImg       = document.getElementById('cover-img');
+const detailCard     = document.getElementById('detail-card');
+const detailName     = document.getElementById('detail-name');
+const detailDesc     = document.getElementById('detail-desc');
+const detailBtn      = document.getElementById('detail-btn');
+const projectImgWrap = document.getElementById('project-img');
+const projectImgInner= document.getElementById('project-img-inner');
 
 const btnPill    = document.querySelector('.btn-pill');
 const btnIcon    = document.querySelector('.btn-icon');
@@ -634,20 +673,31 @@ function showProject(idx) {
   const p = PROJECTS[idx];
   if (!p) return;
 
+  /* ── Populate the info strip ── */
+  if (detailName) detailName.textContent = p.name;
   detailDesc.textContent = p.desc;
   detailBtn.textContent  = p.label;
   detailBtn.href         = p.url;
 
-  /* Repeating title stack — 8 lines like original */
-  titleStack.innerHTML =
-    '<div class="title-rule"></div>' +
-    Array(8).fill(0).map(() =>
-      `<p class="title-repeat">${p.name}</p><div class="title-rule"></div>`
-    ).join('');
+  /* ── Right panel: full-bleed image or gradient placeholder ──
+     Real screenshot if provided (set image path in PROJECTS array),
+     otherwise a two-tone gradient in the project's accent colors. */
+  if (p.image) {
+    projectImgInner.style.background = 'none';
+    projectImgInner.innerHTML = `<img src="${p.image}" alt="${p.name} screenshot">`;
+  } else {
+    projectImgInner.style.background =
+      `linear-gradient(135deg, ${p.accent} 0%, ${p.accentDark} 100%)`;
+    projectImgInner.innerHTML = '';
+  }
 
+  /* Crossfade the project image in over the cover photo */
+  projectImgWrap.classList.add('visible');
+
+  /* Slide in the info strip */
   detailCard.classList.add('visible');
 
-  /* Highlight active row */
+  /* Highlight active row with its per-row accent colour */
   document.querySelectorAll('.js-project').forEach((r, i) => {
     r.classList.toggle('active', i === idx);
   });
@@ -657,6 +707,7 @@ function showProject(idx) {
 
 function hideDetail() {
   detailCard.classList.remove('visible');
+  projectImgWrap.classList.remove('visible');
   document.querySelectorAll('.js-project').forEach(r => r.classList.remove('active'));
   activeProjectIdx = -1;
 }
