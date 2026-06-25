@@ -1,3 +1,3 @@
-# portifolio
+# Portifolio
 Welcome to my portifolio
-Get to know me!
+#Get to know me!
